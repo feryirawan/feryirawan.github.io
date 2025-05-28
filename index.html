@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delphi Realtime Data</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <h2>Data Realtime dari Delphi</h2>
+  <div id="sensor1">Loading...</div>
+
+  <script>
+    // Config dari Firebase Console
+    const firebaseConfig = {
+      apiKey: "....",
+      authDomain: "....",
+      databaseURL: "https://delphi-realtime-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "....",
+      storageBucket: "....",
+      messagingSenderId: "....",
+      appId: "...."
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    db.ref('data/sensor1').on('value', (snapshot) => {
+      const data = snapshot.val();
+      document.getElementById('sensor1').innerText = "Sensor 1: " + data.value;
+    });
+  </script>
+</body>
+</html>
