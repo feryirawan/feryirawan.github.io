@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Delphi Realtime Data</title>
+  <!-- Firebase SDK untuk aplikasi browser -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
@@ -10,22 +11,31 @@
   <div id="sensor1">Loading...</div>
 
   <script>
-    // Config dari Firebase Console
+    // Konfigurasi Firebase kamu
     const firebaseConfig = {
-      apiKey: "....",
-      authDomain: "....",
+      apiKey: "AIzaSyBxhpBz6YpMbgVk7mtxMYQr1XJwEOYndJA",
+      authDomain: "delphi-realtime.firebaseapp.com",
       databaseURL: "https://delphi-realtime-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "....",
-      storageBucket: "....",
-      messagingSenderId: "....",
-      appId: "...."
+      projectId: "delphi-realtime",
+      storageBucket: "delphi-realtime.firebasestorage.app",
+      messagingSenderId: "391234459273",
+      appId: "1:391234459273:web:9b875f89f76178d8211858"
     };
+
+    // Inisialisasi Firebase
     firebase.initializeApp(firebaseConfig);
 
+    // Referensi ke database
     const db = firebase.database();
+
+    // Ambil data real-time dari path 'data/sensor1'
     db.ref('data/sensor1').on('value', (snapshot) => {
       const data = snapshot.val();
-      document.getElementById('sensor1').innerText = "Sensor 1: " + data.value;
+      if (data && data.value) {
+        document.getElementById('sensor1').innerText = "Sensor 1: " + data.value;
+      } else {
+        document.getElementById('sensor1').innerText = "Belum ada data masuk.";
+      }
     });
   </script>
 </body>
